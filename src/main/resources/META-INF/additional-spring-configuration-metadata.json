@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.security.oauth2.client.registration.keycloak.scope",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.security.oauth2.client.registration.keycloak.scope'"
+}]}

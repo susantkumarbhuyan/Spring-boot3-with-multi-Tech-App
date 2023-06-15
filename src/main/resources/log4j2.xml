@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{dd-MM-yyyy HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		</Console>
+		<File name="LogToFile"
+			fileName="logs/spring-application-logs.log">
+			<PatternLayout>
+				<Pattern>%d{dd-MM-yyyy HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.hsignz" level="debug" additivity="false">
+			<AppenderRef ref="LogToFile" />
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
+		<Logger name="org.springframework.boot" level="error"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
+		<Root level="info">
+			<AppenderRef ref="LogToFile" />
+			<AppenderRef ref="LogToConsole" />
+		</Root>
+
+	</Loggers>
+</Configuration>

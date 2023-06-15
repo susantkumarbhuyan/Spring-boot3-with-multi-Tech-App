@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0d0rdn1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <bpmn:process id="poc_creation_bpmn_process" name="PocCreationProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1nx70kr</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="set_pocid" name="set pocId">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="setPocId" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nx70kr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k6vog5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="set_addressid" name="set AddressId">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="setAddressId" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1k6vog5</bpmn:incoming>
+      <bpmn:outgoing>Flow_10tu7ky</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_01pu4a9">
+      <bpmn:incoming>Flow_1y9qxhp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="final_pocdetails" name="inserting Poc Details In DB">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="insertPocDetails" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10tu7ky</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vr7xt9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1k6vog5" sourceRef="set_pocid" targetRef="set_addressid" />
+    <bpmn:sequenceFlow id="Flow_10tu7ky" sourceRef="set_addressid" targetRef="final_pocdetails" />
+    <bpmn:sequenceFlow id="Flow_1nx70kr" sourceRef="StartEvent_1" targetRef="set_pocid" />
+    <bpmn:sequenceFlow id="Flow_0vr7xt9" sourceRef="final_pocdetails" targetRef="Activity_0fxvxzr" />
+    <bpmn:sequenceFlow id="Flow_1y9qxhp" sourceRef="Activity_0fxvxzr" targetRef="Event_01pu4a9" />
+    <bpmn:serviceTask id="Activity_0fxvxzr" name="fetch PocDetails from Db">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="fetchFromDb" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0vr7xt9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y9qxhp</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="poc_creation_bpmn_process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09o908m_di" bpmnElement="set_pocid">
+        <dc:Bounds x="290" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ps2mw8_di" bpmnElement="set_addressid">
+        <dc:Bounds x="480" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01pu4a9_di" bpmnElement="Event_01pu4a9">
+        <dc:Bounds x="992" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tjsp1l_di" bpmnElement="final_pocdetails">
+        <dc:Bounds x="650" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sosdll_di" bpmnElement="Activity_0fxvxzr">
+        <dc:Bounds x="830" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1k6vog5_di" bpmnElement="Flow_1k6vog5">
+        <di:waypoint x="390" y="117" />
+        <di:waypoint x="480" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10tu7ky_di" bpmnElement="Flow_10tu7ky">
+        <di:waypoint x="580" y="117" />
+        <di:waypoint x="650" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nx70kr_di" bpmnElement="Flow_1nx70kr">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="290" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vr7xt9_di" bpmnElement="Flow_0vr7xt9">
+        <di:waypoint x="750" y="117" />
+        <di:waypoint x="830" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y9qxhp_di" bpmnElement="Flow_1y9qxhp">
+        <di:waypoint x="930" y="117" />
+        <di:waypoint x="992" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

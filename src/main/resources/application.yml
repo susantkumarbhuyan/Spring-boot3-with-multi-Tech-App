@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /HSignzBaseAppServices
+  port: 8200
+
+
+#spring:
+#  security:
+#    oauth2:
+#      resourceserver: 
+#        jwt:
+#          issuer-uri:  "http://localhost:18080/auth/realms/HSKeyCloak"
+#          jwk-set-uri: "http://localhost:18080/auth/realms/HSKeyCloak/protocol/openid-connect/certs"
+
+#spring:
+#  data:
+#    redis: 
+#     host: localhost 
+#     port: 6379
+  
+#zeebe:
+#  client:
+#    broker:
+#      gateway-address: 127.0.0.1:26500
+#    security:
+#      plaintext: true
+#    job:
+#      timeout: 30s
+#  #  pollInterval: 30s
+#    requestTimeout: 30S
+#    worker:
+#      threads: 1
